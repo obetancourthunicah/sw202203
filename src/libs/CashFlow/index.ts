@@ -15,26 +15,19 @@ export class CashFlow {
       })
       .catch(ex=>console.error(ex));
   }
-  private cashFlowItems : ICashFlow[] = [];
   // Consultas
   public getAllCashFlow() {
     return this.dao.getClashFlows()
-    // return this.cashFlowItems; // select * from cashflow;
   }
   public getCashFlowByIndex( index:number) {
       return this.dao.getClashFlowById({_id:index});
-      //return this.cashFlowItems[index];
   }
 
   public addCashFlow( cashFlow:ICashFlow) {
     return this.dao.insertNewCashFlow(cashFlow);
   }
-  public updateCashFlow( index:number, cashFlow:ICashFlow): boolean {
-    if (index >= 0 && index < this.cashFlowItems.length) {
-      this.cashFlowItems[index] = cashFlow;
-      return true;
-    }
-    return false;
+  public updateCashFlow( index:number, cashFlow:ICashFlow){
+   return this.dao.update({_id:index}, cashFlow);
   }
   public deleteCashFlow( index:number) {
     return this.dao.deleteCashFlow({_id:index});

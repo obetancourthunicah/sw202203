@@ -37,7 +37,7 @@ export abstract class AbstractDao<T> implements IDaoObject {
     const {columns, values, params:_params} = this.getColValParmArr(data);
     const {columns:columnsId, values:valuesId, params:_paramsId} = this.getColValParmArr(identifier);
     const finalValues = [...values, ...valuesId];
-    const sqlUpdate = `UPDATE ${this.persistanceName} SET ${columns.map((o)=>`${o}=?`).join(' ')} WHERE ${columnsId.map((o)=>`${o}=?`).join(' ')};`;
+    const sqlUpdate = `UPDATE ${this.persistanceName} SET ${columns.map((o)=>`${o}=?`).join(', ')} WHERE ${columnsId.map((o)=>`${o}=?`).join(' ')};`;
     await this.connection.run(sqlUpdate, finalValues);
     return true;
   }

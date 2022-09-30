@@ -32,19 +32,12 @@ router.post('/new', async (req, res)=>{
   }
 });
 
-router.put('/update/:index', (req, res)=>{
+router.put('/update/:index', async (req, res)=>{
   try {
     const { index } = req.params;
     const cashFlowFromForm = req.body as ICashFlow;
-    const cashFlowUpdate = Object.assign(
-      cashFlowInstance.getCashFlowByIndex(+index), cashFlowFromForm
-    );
-    // const cashFlowUpdate = {...cashFlowInstance.getCashFlowByIndex(index), ...cashFlowFromForm};
-    if (cashFlowInstance.updateCashFlow(+index, cashFlowUpdate)){
-      res.json(cashFlowUpdate);
-    } else {
-      res.status(404).json({"msg":"Update not posible"});
-    }
+    await cashFlowInstance.updateCashFlow(+index, cashFlowFromForm);
+    res.status(200).json({"msg":"Registro Actualizado"});
   } catch(error) {
     res.status(500).json({error: (error as Error).message});
   }
