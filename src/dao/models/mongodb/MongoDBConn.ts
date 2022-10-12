@@ -8,8 +8,5 @@ export const getConnection = async ()=> {
   if( !connection){
     connection = await MongoClient.connect(mongoURI);
   }
-  return {
-    connection,
-    db: connection.db(mongoDBName)
-  }
+  return connection.db(mongoDBName);
 }

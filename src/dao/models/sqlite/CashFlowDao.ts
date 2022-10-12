@@ -35,7 +35,7 @@ export class CashFlowDao extends AbstractDao<ICashFlow> {
     }
   }
 
-  public async updateNewCashFlow( updateCashFlow: ICashFlow) {
+  public async updateCashFlow( updateCashFlow: ICashFlow) {
     try {
       const {_id, ...updateObject} = updateCashFlow;
       const result = await super.update({_id}, updateObject);

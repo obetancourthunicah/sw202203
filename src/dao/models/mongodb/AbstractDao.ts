@@ -24,6 +24,8 @@ export abstract class AbstractDao<T> implements IDaoObject {
     if (connection) {
       this.connection = connection;
       this.collection = this.connection.collection(persistanceName);
+    } else {
+      throw new Error("No DB Connection");
     }
   }
 
@@ -48,6 +50,14 @@ export abstract class AbstractDao<T> implements IDaoObject {
       $set: data,
     } as UpdateFilter<T>);
   }
+  public async updateRaw(
+    identifier: string,
+    data: UpdateFilter<T>,
+  ): Promise<UpdateResult> {
+    const _id = new ObjectId(identifier) as Filter<T>;
+    return this.collection.updateOne({ _id }, data);
+  }
+
   public async delete(identifier: string): Promise<DeleteResult> {
     const _id = new ObjectId(identifier) as Filter<T>;
     return this.collection.deleteOne({ _id });
