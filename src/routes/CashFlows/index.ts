@@ -14,6 +14,15 @@ router.get('/', async (_req, res)=>{
   }
 });
 
+router.get('/count', async (_req, res)=>{
+  try {
+    res.json({"count": await cashFlowInstance.getCountCashflow()});
+  } catch (ex) {
+    console.error(ex);
+    res.status(503).json({error:ex});
+  }
+});
+
 router.get('/byindex/:index', async (req, res) => {
   try {
     const { index } = req.params;

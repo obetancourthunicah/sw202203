@@ -31,6 +31,12 @@ export class CashFlow {
       }
   }
 
+  public getCountCashflow(){
+    return (this.dao instanceof CashFlowMongoDbDao) ?
+      (this.dao as CashFlowMongoDbDao).getCountCashFlow()  :
+      Promise.resolve(0);
+  }
+
   public addCashFlow( cashFlow:ICashFlow) {
     return this.dao.insertNewCashFlow(cashFlow);
   }

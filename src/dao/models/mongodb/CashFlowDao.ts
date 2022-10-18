@@ -41,6 +41,15 @@ export class CashFlowDao extends AbstractDao<ICashFlow> {
     }
   }
 
+  public async getCountCashFlow() {
+    try {
+      return await super.getCollection().countDocuments({});
+    } catch( ex: unknown) {
+      console.log("CashFlowDao mongodb:", (ex as Error).message);
+      throw ex;
+    }
+  }
+
   public async deleteCashFlow( deleteCashFlow: Partial<ICashFlow>) {
     try {
       const {_id } = deleteCashFlow;

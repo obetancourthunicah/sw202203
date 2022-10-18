@@ -1,0 +1,73 @@
+{
+  "evento":"Evento XYZ",
+  "fecha":"2022-10-17T18:00:00:000Z",
+  "tipo": "Cumpleaños",
+  "lugar":{
+    "address1":"",
+    "address2":"",
+    "zipCode":"",
+    "city":"",
+    "coordinates":{
+      "lat": 0,
+      "lon": 0
+    }
+  },
+  "team":[
+    {
+      "nombre":"",
+      "id":"",
+      "phone":"",
+      "email":"",
+      "role":""
+    },
+    {
+      "nombre":"",
+      "id":"",
+      "phone":"",
+      "email":"",
+      "role":""
+    }
+  ],
+  "client": {
+      "nombre":"",
+      "id":"",
+      "phone":"",
+      "email":"",
+      "address1":""
+    },
+  "costs":{
+    "price": 10000.00,
+    "tax":  [
+      {
+        "taxName": "",
+        "taxBaseAmount": 8000,
+        "taxAmount": 1200
+      },
+      {
+        "taxName": "",
+        "taxBaseAmount": 2000,
+        "taxAmount": 380
+      }
+    ],
+    "terms": {
+      "kickOffFee": 0.10,
+      "closingFee": 0.9
+    }
+  },
+  "annotations": [
+    {
+      "subject": "",
+      "body": "",
+      "createdBy": "",
+      "createdOn": "",
+      "type": ""
+    },
+    {
+      "subject": "",
+      "body": "",
+      "createdBy": "",
+      "createdOn": "",
+      "type": ""
+    }
+  ]
+}
