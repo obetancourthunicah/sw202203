@@ -38,7 +38,15 @@ export class CashFlow {
   }
 
   public addCashFlow( cashFlow:ICashFlow) {
-    return this.dao.insertNewCashFlow(cashFlow);
+    const { type, date, amount, description} = cashFlow;
+    return this.dao.insertNewCashFlow(
+      {
+        type,
+        date: new Date(date),
+        amount: Number(amount),
+        description
+      }
+    );
   }
   public updateCashFlow( index:number|string, cashFlow:ICashFlow){
       return (this.dao as CashFlowMongoDbDao).updateCashFlow({...cashFlow, _id:index});
