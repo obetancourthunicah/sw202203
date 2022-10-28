@@ -15,4 +15,16 @@ router.post('/signin', async (req, res)=> {
   }
 });
 
+router.post('/login', async (req, res)=>{
+  try {
+    const {email, password} = req.body;
+    const result = await users.login(email, password);
+    console.log("LOGIN:", result);
+    res.status(200).json(result);
+  } catch(ex) {
+    console.log("Error:", ex);
+    res.status(403).json({error:"Credenciales no son Válidas"});
+  }
+});
+
 export default router;

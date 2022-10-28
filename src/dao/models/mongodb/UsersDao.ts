@@ -8,7 +8,7 @@ export class UsersDao extends AbstractDao<IUser>{
   }
   getUserByEmail(email:string){
     const query = {email};
-    return this.findByFilter(query);
+    return this.findOneByFilter(query);
   }
   getAllUsers(){}
   updateUserStatus(){}

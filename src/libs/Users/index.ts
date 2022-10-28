@@ -1,6 +1,7 @@
 import { getConnection } from "@models/mongodb/MongoDBConn";
 import { UsersDao  } from "@models/mongodb/UsersDao";
-import {getPassword/*, checkPassword */} from "@utils/crypto";
+import {checkPassword, getPassword } from "@utils/crypto";
+import { sign } from "@utils/jwt";
 
 export class Users {
   private dao: UsersDao;
@@ -26,7 +27,27 @@ export class Users {
     return this.dao.createUser(newUser);
   }
 
-  public login(_email: string, _password: string) {
-    
+  public async login(email: string, password: string) {
+    try {
+      const user = await this.dao.getUserByEmail(email);
+      if(!!!user){
+        console.log("LOGIN: NO USER FOUND: ", `${email}`);
+        throw new Error("LOGIN NO USER FOUND");
+      }
+      if (user.status !== 'ACT' ) {
+        console.log("LOGIN: STATUS NOT ACTIVE: ", `${user.email} - ${user.status}`);
+        throw new Error("LOGIN STATUS INVALID");
+      }
+      if(!checkPassword(password, user.password)){
+        console.log("LOGIN: PASSWORD INVALID: ", `${user.email} - ${user.status}`);
+        throw new Error("LOGIN PASSWORD INVALID");
+      }
+      const {name, email: emailUser, avatar, _id} = user;
+      const returnUser = {name, email: emailUser, avatar, _id};
+      return {...returnUser, token: sign(returnUser)};
+    } catch(err){
+      console.log("LOGIN:" , err);
+      throw err;
+    }
   }
 }
