@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register -r dotenv/config src/index",
     "dev": "nodemon --config restart.json",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "author": "Orlando J Betancourth orlando.betancourth@gmail.com",
   "license": "ISC",

@@ -27,4 +27,17 @@ router.post('/login', async (req, res)=>{
   }
 });
 
+router.post('/addrole/:id', async (req, res)=>{
+  try {
+    const {id} = req.params;
+    const {role} = req.body;
+    const result = await users.assignRoles(id, role);
+    console.log("ADD_ROLE:", result);
+    res.status(200).json(result);
+  } catch (ex){
+    console.log("Error:", ex);
+    res.status(403).json({error:"No se pudo asignar rol"});
+  }
+});
+
 export default router;

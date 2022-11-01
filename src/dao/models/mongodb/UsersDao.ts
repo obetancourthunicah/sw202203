@@ -10,8 +10,22 @@ export class UsersDao extends AbstractDao<IUser>{
     const query = {email};
     return this.findOneByFilter(query);
   }
-  getAllUsers(){}
-  updateUserStatus(){}
+  getAllUsers(){
+    return this.findAll();
+  }
+  updateUserFailed(id:string){
+    return this.updateRaw(id, {$inc: {failedAttempts: 1}, $set: {updated: new Date()}});
+  }
+  updateLoginSuccess(id:string){
+    const currentDate = new Date();
+    return this.update(id, {lastLogin: currentDate, failedAttempts: 0, updated: currentDate});
+  }
+  addRoleToUser(id: string, role:string){
+    return this.updateRaw(id,
+      // {$push : {roles: role}}
+      {$addToSet: {roles: role}}
+    );
+  }
   changeUserPassword(){}
 
   createUser(user:IUser){
