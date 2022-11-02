@@ -1,4 +1,4 @@
-import { Router} from 'express';
+import { Request, Router} from 'express';
 
 import CashFlowRouter  from './CashFlows';
 import UsersRouter from './Users';
@@ -12,3 +12,7 @@ router.use('/cashflow', apiKeyMW, jwtValidator, CashFlowRouter);
 router.use('/security', apiKeyMW, UsersRouter);
 
 export default router;
+
+export interface WithUserRequest extends Request {
+  user?: any;
+}

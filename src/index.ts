@@ -46,7 +46,7 @@ const startServer = async () => {
     });
   });
 };
-
+logger.info('Starting Server');
 initMongo(
   startServer
 );

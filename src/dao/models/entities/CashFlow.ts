@@ -4,4 +4,5 @@ export interface ICashFlow {
   amount: number;
   description: string;
   _id?: unknown;
+  userId?: unknown;
 };
