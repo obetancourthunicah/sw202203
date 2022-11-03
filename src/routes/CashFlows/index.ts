@@ -17,9 +17,9 @@ router.get('/', async (req: WithUserRequest, res)=>{
   }
 });
 
-router.get('/count', async (_req, res)=>{
+router.get('/count', async (req: WithUserRequest, res)=>{
   try {
-    res.json({"count": await cashFlowInstance.getCountCashflow()});
+    res.json({"count": await cashFlowInstance.getCountCashflow(req.user._id)});
   } catch (ex) {
     console.error(ex);
     res.status(503).json({error:ex});
@@ -65,9 +65,8 @@ router.post('/new', async (req: WithUserRequest, res)=>{
 
 router.put('/update/:index', async (req, res)=>{
   try {
-    const { index } = req.params;
+    const { index : id } = req.params;
     const cashFlowFromForm = req.body as ICashFlow;
-    const id = (/^\d*$/.test(index))?+index:index;
     await cashFlowInstance.updateCashFlow(id, cashFlowFromForm);
     res.status(200).json({"msg":"Registro Actualizado"});
   } catch(error) {

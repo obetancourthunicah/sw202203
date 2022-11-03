@@ -28,8 +28,8 @@ export class CashFlow {
         return this.dao.getClashFlowById(index);
   }
 
-  public getCountCashflow(){
-    return this.dao.getCountCashFlow();
+  public getCountCashflow(userId:string){
+    return this.dao.getCountCashFlow(userId);
   }
 
   public addCashFlow( cashFlow:ICashFlow, userId: string) {

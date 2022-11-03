@@ -10,7 +10,7 @@ export class CashFlowDao extends AbstractDao<ICashFlow> {
     return super.findAll()
   }
   public getCashFlowByUser(id:string){
-    return super.findByFilter({userId: new ObjectId(id)});
+    return super.findByFilter({userId: new ObjectId(id)},{sort:{'type': -1}});
   }
 
   public async getClashFlowById( identifier : string ){
@@ -46,9 +46,9 @@ export class CashFlowDao extends AbstractDao<ICashFlow> {
     }
   }
 
-  public async getCountCashFlow() {
+  public async getCountCashFlow(userId:string) {
     try {
-      return await super.getCollection().countDocuments({});
+      return await super.getCollection().countDocuments({userId: new ObjectId(userId)});
     } catch( ex: unknown) {
       console.log("CashFlowDao mongodb:", (ex as Error).message);
       throw ex;
