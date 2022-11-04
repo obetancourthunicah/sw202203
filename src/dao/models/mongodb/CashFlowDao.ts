@@ -13,6 +13,36 @@ export class CashFlowDao extends AbstractDao<ICashFlow> {
     return super.findByFilter({userId: new ObjectId(id)},{sort:{'type': -1}});
   }
 
+  public async getCashFlowByUserPaged(userId: string, page:number = 1, itemsPerPage: number = 10){
+    try {
+      const total = await super.getCollection().countDocuments({userId: new ObjectId(userId)});
+      const totalPages = Math.ceil(total / itemsPerPage);
+      const items = await super.findByFilter(
+        { userId: new ObjectId(userId)},
+        { sort:{'type': -1},
+          skip:((page-1) * itemsPerPage),
+          limit:itemsPerPage
+          }
+        );
+        return {
+          total,
+          totalPages,
+          page,
+          itemsPerPage,
+          items
+        };
+    } catch (ex) {
+      console.log("CashFlowDao mongodb:", (ex as Error).message);
+      throw ex;
+    }
+  }
+
+  public getTypeSumarry(userId:string){
+    const match = {$match: {userId: new ObjectId(userId)}};
+    const group = {$group: {_id: "$type", item: {$sum: 1}}};
+    return this.aggregate([match, group], {});
+  }
+
   public async getClashFlowById( identifier : string ){
     try{
       const result = await super.findByID(identifier);

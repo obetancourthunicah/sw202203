@@ -9,8 +9,18 @@ const cashFlowInstance = new CashFlow();
 
 router.get('/', async (req: WithUserRequest, res)=>{
   try {
+    const {page, items} = {page:"1", items:"10", ...req.query};
     console.log("CASHFLOW", req.user);
-    res.json(await cashFlowInstance.getAllCashFlowFromUser(req.user?._id));
+    res.json(await cashFlowInstance.getCashFlowByUserPaged(req.user?._id, Number(page), Number(items)));
+  } catch (ex) {
+    console.error(ex);
+    res.status(503).json({error:ex});
+  }
+});
+
+router.get('/summary', async (req: WithUserRequest, res)=>{
+  try {
+    res.json(await cashFlowInstance.getTypeSumarry(req.user._id));
   } catch (ex) {
     console.error(ex);
     res.status(503).json({error:ex});

@@ -24,12 +24,19 @@ export class CashFlow {
   public getAllCashFlowFromUser(id:string) {
     return this.dao.getCashFlowByUser(id);
   }
+  public getCashFlowByUserPaged(userId:string, page:number, items:number ){
+    return this.dao.getCashFlowByUserPaged(userId, page, items);
+  }
   public getCashFlowByIndex( index:string) {
         return this.dao.getClashFlowById(index);
   }
 
   public getCountCashflow(userId:string){
     return this.dao.getCountCashFlow(userId);
+  }
+
+  public getTypeSumarry(userId:string){
+    return this.dao.getTypeSumarry(userId);
   }
 
   public addCashFlow( cashFlow:ICashFlow, userId: string) {
