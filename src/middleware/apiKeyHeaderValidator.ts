@@ -1,10 +1,10 @@
-import validateApiKey from "@server/utils/apiKeyValidator";
-const apiKeyMW = (req, res, next)=>{
-  const apikey = req.get('apikey') || '';
-  if (validateApiKey(apikey)){
+import validateApiKey from '@server/utils/apiKeyValidator';
+const apiKeyMW = (req, res, next) => {
+  const apikey = req.get('apikey') || req.query.apikey || '';
+  if (validateApiKey(apikey)) {
     return next();
   }
-  return res.status(406).json({"error":"APIKEY Not valid!"});
-}
+  return res.status(406).json({ error: 'APIKEY Not valid!' });
+};
 
 export default apiKeyMW;
