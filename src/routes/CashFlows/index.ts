@@ -18,6 +18,15 @@ router.get('/', async (req: WithUserRequest, res)=>{
   }
 });
 
+router.get('/all', async(req: WithUserRequest, res)=>{
+  try {
+    res.json(await cashFlowInstance.getAllCashFlow());
+  } catch (ex) {
+    console.error(ex);
+    res.status(503).json({error:ex});
+  }
+});
+
 router.get('/summary', async (req: WithUserRequest, res)=>{
   try {
     res.json(await cashFlowInstance.getTypeSumarry(req.user._id));

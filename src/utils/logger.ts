@@ -16,3 +16,14 @@ const logger = winston.createLogger({
 });
 
 export default logger;
+
+export function useLogger(){
+  return function (target:any, propertyKey: string, descriptor: PropertyDescriptor){
+    const targetMethod = descriptor.value;
+    const initTarget = target?.constructor?.name;
+    descriptor.value = function(...args: any[]){
+      logger.info(`${initTarget}: Calling ${propertyKey}`);
+      return targetMethod.apply(this, args);
+    }
+  }
+}

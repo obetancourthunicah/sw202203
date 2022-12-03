@@ -1,25 +1,28 @@
 import { ICashFlow } from "../entities/CashFlow";
 import { AbstractDao } from "./AbstractDao";
 import {Db, ObjectId} from "mongodb";
+import { useLogger } from "@server/utils/logger";
 
 export class CashFlowDao extends AbstractDao<ICashFlow> {
   public constructor(db: Db) {
     super('cashflow', db );
   }
+  @useLogger()
   public getClashFlows() {
     return super.findAll()
   }
+  @useLogger()
   public getCashFlowByUser(id:string){
     return super.findByFilter({userId: new ObjectId(id)},{sort:{'type': -1}});
   }
-
+  @useLogger()
   public async getCashFlowByUserPaged(userId: string, page:number = 1, itemsPerPage: number = 10){
     try {
       const total = await super.getCollection().countDocuments({userId: new ObjectId(userId)});
       const totalPages = Math.ceil(total / itemsPerPage);
       const items = await super.findByFilter(
         { userId: new ObjectId(userId)},
-        { sort:{'type': -1},
+        { sort:{'type': -1,"date":-1},
           skip:((page-1) * itemsPerPage),
           limit:itemsPerPage
           }
@@ -36,7 +39,7 @@ export class CashFlowDao extends AbstractDao<ICashFlow> {
       throw ex;
     }
   }
-
+  @useLogger()
   public getTypeSumarry(userId:string){
     const match = {$match: {userId: new ObjectId(userId)}};
     const group = {$group: {_id: "$type", item: {$sum: 1}}};
