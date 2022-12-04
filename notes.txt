@@ -1,0 +1,6 @@
+MONGO_URI=
+MONGO_DB_NAME=
+http://localhost:3001/cashflow
+?apikey=asd0f976asdf8907asd0897asdflkjh
+&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicm9iZXJ0IiwiZW1haWwiOiJyb2JlcnRAcm9iZXJ0LmNvbSIsImF2YXRhciI6IiIsIl9pZCI6IjYzN2VjM2YzOTdkNjI0MWRjZDc4ZTg4ZSIsImlhdCI6MTY2OTI1MjEwMH0.A4afhOb6OIGPc_AzFVGQPhxlnyRccugaFeSCfJ0gPeU
+
